@@ -1,5 +1,5 @@
 {
-    "name": "lijian/validator",
+    "name": "jeckleee/validator",
     "description": "一款简单的数据验证工具",
     "type": "library",
     "require": {
