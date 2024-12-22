@@ -11,18 +11,18 @@ class Validator
 
     private static array $putout = [];
 
-    private static $custom_exception = null;
+    private static ?object $custom_exception = null;
 
     public array $rules = [];
 
-    public static $show_all_rules = [
+    public static array $show_all_rules = [
         'required' => '参数必填,可设置一个默认值',
 
     ];
 
     public static function array(array $input, $rules, $custom_exception = null): array
     {
-        self::$custom_exception = $custom_exception ?: \Exception::class;
+        self::$custom_exception = $custom_exception ?: Exception::class;
         self::$input = $input;
         self::$putout = [];
         foreach ($rules as $key => $rule) {
@@ -99,7 +99,7 @@ class Validator
     /**
      * @throws Exception
      */
-    public static function _stringTrim($field_name, $field_value, $item)
+    private static function _stringTrim($field_name, $field_value, $item)
     {
         $msg = $item['msg'] ?: '参数:' . $field_name . '不合法';
         if ($field_value) {
@@ -124,7 +124,7 @@ class Validator
     /**
      * @throws Exception
      */
-    public static function _betweenNumber($field_name, $field_value, $item)
+    private static function _betweenNumber($field_name, $field_value, $item)
     {
         $msg = $item['msg'] ? $item['msg'] : '参数:' . $field_name . '必须在' . $item['min'] . '-' . $item['max'] . '之间';
         if ($field_value >= $item['min'] && $field_value <= $item['max']) {
@@ -145,7 +145,7 @@ class Validator
 
     }
 
-    public static function _inArray($field_name, $field_value, $item)
+    private static function _inArray($field_name, $field_value, $item)
     {
         $msg = $item['msg'] ? $item['msg'] : '参数:' . $field_name . '仅允许在(' . implode(',', $item['array']) . ')中';
         if (in_array($field_value, $item['array'])) {
@@ -165,7 +165,7 @@ class Validator
         return $this;
     }
 
-    public static function _isArray($field_name, $field_value, $item)
+    private static function _isArray($field_name, $field_value, $item)
     {
         $msg = $item['msg'] ? $item['msg'] : '参数:' . $field_name . '必须是一个数组';
         if (is_array($field_value)) {
@@ -184,7 +184,7 @@ class Validator
         return $this;
     }
 
-    public static function _notValidate($field_name, $field_value, $item)
+    private static function _notValidate($field_name, $field_value, $item)
     {
         self::$putout[$field_name] = $field_value ?? null;
     }
@@ -202,7 +202,7 @@ class Validator
     /**
      * @throws Exception
      */
-    public static function _isNumber($field_name, $field_value, $item)
+    private static function _isNumber($field_name, $field_value, $item)
     {
         $msg = $item['msg'] ? $item['msg'] : '参数:' . $field_name . '必须是数字';
         if (is_numeric($field_value)) {
@@ -227,7 +227,7 @@ class Validator
 
     }
 
-    public static function _stringLength($field_name, $field_value, $item)
+    private static function _stringLength($field_name, $field_value, $item)
     {
         $msg = $item['msg'] ?: '参数:' . $field_name . '的长度必须' . ($item['min'] === $item['max'] ? '为' . $item['min'] : $item['min'] . '~' . $item['max'] . '之间');
 
@@ -254,7 +254,7 @@ class Validator
     /**
      * @throws Exception
      */
-    public static function _isEmail($field_name, $field_value, $item)
+    private static function _isEmail($field_name, $field_value, $item)
     {
         $msg = $item['msg'] ?: '参数:' . $field_name . '不是一个合法的邮箱地址';
 
@@ -276,7 +276,7 @@ class Validator
         return $this;
     }
 
-    public static function _isMobile($field_name, $field_value, $item): void
+    private static function _isMobile($field_name, $field_value, $item): void
     {
         $msg = $item['msg'] ? $item['msg'] : '参数:' . $field_name . '不是一个合法的手机号';
 
@@ -302,7 +302,7 @@ class Validator
     /**
      * @throws Exception
      */
-    public static function _isDateTimeInFormat($field_name, $field_value, $item): void
+    private static function _isDateTimeInFormat($field_name, $field_value, $item): void
     {
         $msg = $item['msg'] ?: '参数:' . $field_name . '不是一个合法的时间字符串.(' . $item['format'] . ')';
 
@@ -326,7 +326,7 @@ class Validator
         return $this;
     }
 
-    public static function _isIdCard($field_name, $field_value, $item): void
+    private static function _isIdCard($field_name, $field_value, $item): void
     {
         $msg = $item['msg'] ?: '参数:' . $field_name . '不是一个合法的身份证号';
 
@@ -348,7 +348,7 @@ class Validator
         return $this;
     }
 
-    public static function _isUrl($field_name, $field_value, $item): void
+    private static function _isUrl($field_name, $field_value, $item): void
     {
         $msg = $item['msg'] ?: '参数:' . $field_name . '不是一个合法的url';
         if (filter_var($field_value, FILTER_VALIDATE_URL)) {
@@ -369,7 +369,7 @@ class Validator
         return $this;
     }
 
-    public static function _isIp($field_name, $field_value, $item): void
+    private static function _isIp($field_name, $field_value, $item): void
     {
         $msg = $item['msg'] ?: '参数:' . $field_name . '不是一个合法的ip地址';
         $filter = FILTER_FLAG_IPV4;
