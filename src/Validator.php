@@ -1,6 +1,6 @@
 <?php
 
-namespace Jeckleee\Validator;
+namespace Jeckleee\Tools;
 
 use DateTime;
 use Exception;
@@ -46,7 +46,7 @@ class Validator
 		}
 	}
 	
-	public static function rule(): Validate
+	public static function rule(): Validator
 	{
 		return new static();
 	}
