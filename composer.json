@@ -1,6 +1,6 @@
 {
-    "name": "jeckleee/validator",
-    "description": "一款简单的数据验证工具",
+    "name": "jeckleee/tools",
+    "description": "一些常用工具:数据验证",
     "type": "library",
     "require": {
         "php": ">7.4"
