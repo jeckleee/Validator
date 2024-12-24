@@ -1,14 +1,12 @@
 <?php
 
-namespace Lijian\Validator;
+namespace Jeckleee\Validator;
 
 use DateTime;
 use Exception;
 
-use DateTime;
-use Exception;
 
-class Validate
+class Validator
 {
 	private static array $input = [];
 	private static array $output = [];
